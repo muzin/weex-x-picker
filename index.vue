@@ -229,31 +229,21 @@
       linkageColumn: {
         type: Number,
         default: 2
+      },
+      defaultTitle:{
+        type: String,
+        dafault: null
       }
     },
     created() {
-      // var _self = this
-      // setTimeout(function(){
-      //   _self.col_1_list = _self.list;
-      // }, 1000)
-      console.log('created ')
+
       // 初始化列数
       this.changeColumn()
 
       // 初始化列数据
       this.initColumns()
 
-      /// this.col_1_list.push(...this.list)
     },
-    /*updated() {
-      console.log('updated')
-      // 初始化列数
-      this.changeColumn()
-
-      // 初始化列数据
-      this.initColumns()
-
-    },*/
     computed: {
       pickerItemStyle() {
         var style = {}
@@ -333,62 +323,57 @@
           if(this.column > 0) {
             this.col_1_list = dataset[0]
             this.checked_col_1 = 0
-            this.checkedItem(this.col_1_ref, this.checked_col_1)
           }
           if(this.column > 1) {
             this.col_2_list = dataset[1]
             this.checked_col_2 = 0
-            this.checkedItem(this.col_2_ref, this.checked_col_2)
           }
 
         } else if(Type.date === type){
           if(this.column > 0) {
             this.col_1_list = this.generTimeYear();
             this.checked_col_1 = 0;
-            this.checkedItem(this.col_1_ref, this.checked_col_1)
           }
           if(this.column > 1) {
             this.col_2_list = this.generTimeMonth()
             this.checked_col_2 = 0;
-            this.checkedItem(this.col_2_ref, this.checked_col_2)
           }
           if(this.column > 2) {
             this.col_3_list = this.generTimeDate()
             this.checked_col_3 = 0;
-            this.checkedItem(this.col_3_ref, this.checked_col_3)
           }
 
         } else if(Type.time === type){
           if(this.column > 0) {
             this.col_1_list = this.generTimeHour()
             this.checked_col_1 = 0
-            this.checkedItem(this.col_1_ref, this.checked_col_1)
           }
           if(this.column > 1) {
             this.col_2_list = this.generTimeMinute()
             this.checked_col_2 = 0
-            this.checkedItem(this.col_2_ref, this.checked_col_2)
           }
         } else {
           if(this.column > 0) {
             this.col_1_list = dataset;
             this.checked_col_1 = 0;
-            this.checkedItem(this.col_1_ref, this.checked_col_1)
           }
           if(this.column > 1) {
             this.col_2_list = this.col_1_list[0].children || []
             this.checked_col_2 = 0;
-            this.checkedItem(this.col_2_ref, this.checked_col_2)
           }
           if(this.column > 2) {
             this.col_3_list = this.col_2_list[0].children || []
             this.checked_col_3 = 0;
-            this.checkedItem(this.col_3_ref, this.checked_col_3)
           }
         }
+
+        if(this.defaultTitle){
+          this.refreshCheckedByDefaultTitle()
+        }
+
+        this.refreshColumns()
       },
       refreshColumns () {
-        console.log(this.checked_col_1, this.checked_col_2, this.checked_col_3)
         var _self = this;
         var timer = setTimeout(function(){
           clearTimeout(timer)
@@ -544,7 +529,7 @@
       // 选择 某列 某项
       checkedItem(ref, idx) {
         var scrollToItem = null;
-        if(!ref || !idx) return;
+        if(!ref) return;
 
         scrollToItem = this.$refs[ref + '_text_' + idx]
 
@@ -602,6 +587,33 @@
           value: index
         }})
         return dataset;
+      },
+
+      findItemByTitle (ref, title){
+        var arr = null
+        if(this.col_1_ref == ref){
+          arr = this.col_1_list
+        } else if(this.col_2_ref == ref){
+          arr = this.col_2_list
+        } else if(this.col_3_ref == ref) {
+          arr = this.col_3_list
+        }
+        return this.findIndexByTitle(arr, title)
+      },
+
+      findIndexByTitle (arr, t){
+        var idx = -1;
+        if(!arr){ return idx; }
+        console.log('find index title ,arr length :', arr.length)
+        for(var i = 0; i < arr.length; i++){
+          var item = arr[i]
+          var title = item.title
+          if(t === title){
+            idx = i;
+            break;
+          }
+        }
+        return idx;
       },
 
       getResult(){
@@ -698,12 +710,32 @@
       },
       cancel (e) {
         this.PopupOverlayClick(e)
+      },
+
+      refreshCheckedByDefaultTitle () {
+        var defaultTitle = this.defaultTitle || ''
+
+        var arr = defaultTitle.split(' ')
+        if(arr.length > 0) {
+          this.checked_col_1 = this.findItemByTitle(this.col_1_ref, arr[0])
+          this.checked_col_1 = this.checked_col_1 < 0 ? 0 : this.checked_col_1
+        }
+        if(arr.length > 1) {
+          this.checked_col_2 = this.findItemByTitle(this.col_2_ref, arr[1])
+          this.checked_col_2 = this.checked_col_2 < 0 ? 0 : this.checked_col_2
+        }
+        if(arr.length > 2) {
+          this.checked_col_3 = this.findItemByTitle(this.col_3_ref, arr[2])
+          this.checked_col_3 = this.checked_col_3 < 0 ? 0 : this.checked_col_3
+        }
       }
     },
     watch: {
       show (crt) {
-        if(crt)
-            this.refreshColumns()
+        if(crt) {
+          this.refreshCheckedByDefaultTitle()
+          this.refreshColumns()
+        }
       },
 
       type () {
@@ -718,6 +750,12 @@
 
       linkageColumn (crt) {
         this.column = crt
+      },
+
+      defaultTitle (crt, old){
+        if(crt == old) return;
+        this.refreshCheckedByDefaultTitle()
+        this.refreshColumns()
       }
     }
   };
