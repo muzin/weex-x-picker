@@ -14,6 +14,8 @@ export default {
   date: 'date',
   
   // 时间
-  time: 'time'
+  time: 'time',
   
+  // 联动
+  linkage: 'linkage'
 }

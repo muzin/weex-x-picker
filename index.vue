@@ -225,6 +225,10 @@
       yearSection: {
         type: Array,
         default: ()=>([1949, new Date().getFullYear()])
+      },
+      linkageColumn: {
+        type: Number,
+        default: 2
       }
     },
     created() {
@@ -307,8 +311,10 @@
           this.column = 2;
         } else if(Type.date === type){
           this.column = 3;
-        } else if(Type.time === type){
+        } else if(Type.time === type) {
           this.column = 2;
+        } else if(Type.linkage === type){
+          this.column = this.linkageColumn;
         } else {
           this.column = 1;
         }
@@ -698,8 +704,21 @@
       show (crt) {
         if(crt)
             this.refreshColumns()
-      }
+      },
 
+      type () {
+        this.changeColumn()
+        this.initColumns()
+      },
+
+      dataset () {
+        this.changeColumn()
+        this.initColumns()
+      },
+
+      linkageColumn (crt) {
+        this.column = crt
+      }
     }
   };
 </script>
@@ -707,6 +726,9 @@
 <style scoped>
 
     .picker {
+        position: absolute;
+        left: 0px;
+        top: 0px;
         width: 750px;
         flex: 1;
     }
