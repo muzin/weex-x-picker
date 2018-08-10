@@ -8,9 +8,20 @@ weex-x-picker 基于 alibaba 的weex-ui中的wxc-popup，wxc-overlay 组件开�
 用于选择器，包括单选，选择区间，时间，日期，区域等。
 
 ## 安装
+
 ``` sh
 npm add weex-x-picker
 ```
+
+
+![](./images/11.png)
+
+![](./images/22.png)
+
+![](./images/33.png)
+
+![](./images/44.png)
+
 
 ## 使用方法
 
