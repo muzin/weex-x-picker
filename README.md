@@ -86,7 +86,7 @@ npm add weex-x-picker
 |type|`String`|`Y`| `'single'` |选择器的类型，详细配置参考下方 `type规则`|
 |defaultTitle|`String`|`N`| `null` |选择器的默认值标题，如果是多列用空格隔开，默认值必须是选择器中的选项，否则匹配不到不生效。|
 |dataset|`Array`|Y| `[]` |选择器的数据集合。当type为section时，数据集的格式需要规定为[ [...], [...] ]，，详细配置参考下方 `dataset规则`|
-|yearSection|Array|`N`| `[1949, new Date().getFullYear()]` |年份的区间，该参数只有才type为date时，才生效。用于规定日期的年份区间|
+|yearSection|`Array`|`N`| `[1949, new Date().getFullYear()]` |年份的区间，该参数只有才type为date时，才生效。用于规定日期的年份区间|
 |linkageColumn|`Number`|N| `2` |联动的列数，该参数只有在type为linkage时，才生效。用于自定义联动的数据的列。（注：动态修改时，需要先将类型修改为linkage，在修改该值）|
 
 
