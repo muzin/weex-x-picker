@@ -206,6 +206,8 @@
 
       checked_col_3: 0,
 
+      webPickerTimer: null
+
     }),
     props: {
       // 是否显示 picker
@@ -447,10 +449,14 @@
 
         if(this.isWeb()){
           var _self = this;
-          var timer = setTimeout(function(){
-            clearTimeout(timer)
+          if(this.webPickerTimer){
+            clearTimeout(this.webPickerTimer)
+          }
+          this.webPickerTimer = setTimeout(function(){
+            clearTimeout(_self.webPickerTimer)
+            _self.webPickerTimer = null
             _self.scrollEnd(e, ref)
-          }, 100)
+          }, 500)
         }
       },
 
@@ -482,10 +488,15 @@
 
         if(this.isWeb()){
           var _self = this;
-          var timer = setTimeout(function(){
-            clearTimeout(timer)
+
+          if(this.webPickerTimer){
+            clearTimeout(this.webPickerTimer)
+          }
+          this.webPickerTimer = setTimeout(function(){
+            clearTimeout(_self.webPickerTimer)
+            _self.webPickerTimer = null
             _self.scrollEnd(e, ref)
-          }, 100)
+          }, 500)
         }
       },
 
@@ -628,7 +639,7 @@
             && this.col_1_list[this.checked_col_1]) {
             var checkobj = Object.assign({}, this.col_1_list[this.checked_col_1] || {});
             var title = checkobj.title || ''
-            var value = checkobj.value || ''
+            var value = checkobj.value || title
             titles.push(title);
             values.push(value);
             checkobj.children && delete checkobj.children;
@@ -651,7 +662,7 @@
               && this.col_2_list[this.checked_col_2]) {
               var checkobj = Object.assign({}, this.col_2_list[this.checked_col_2] || {});
               var title = checkobj.title || ''
-              var value = checkobj.value || ''
+              var value = checkobj.value || title
               titles.push(title);
               values.push(value);
               checkobj.children && delete checkobj.children;
@@ -675,7 +686,7 @@
               && this.col_3_list[this.checked_col_3]) {
               var checkobj = Object.assign({}, this.col_3_list[this.checked_col_3] || {});
               var title = checkobj.title || ''
-              var value = checkobj.value || ''
+              var value = checkobj.value || title
               titles.push(title);
               values.push(value);
               checkobj.children && delete checkobj.children;
@@ -743,7 +754,8 @@
         this.initColumns()
       },
 
-      dataset () {
+      dataset (crt) {
+        if(!crt) this.dataset = [];
         this.changeColumn()
         this.initColumns()
       },
