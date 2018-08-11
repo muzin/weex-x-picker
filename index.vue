@@ -638,8 +638,8 @@
             && this.checked_col_1 < this.col_1_list.length
             && this.col_1_list[this.checked_col_1]) {
             var checkobj = Object.assign({}, this.col_1_list[this.checked_col_1] || {});
-            var title = checkobj.title || ''
-            var value = checkobj.value || title
+            var title = 'title' in checkobj ? checkobj.title : ''
+            var value = 'value' in checkobj ? checkobj.value : title
             titles.push(title);
             values.push(value);
             checkobj.children && delete checkobj.children;
@@ -661,8 +661,8 @@
               && this.checked_col_2 < this.col_2_list.length
               && this.col_2_list[this.checked_col_2]) {
               var checkobj = Object.assign({}, this.col_2_list[this.checked_col_2] || {});
-              var title = checkobj.title || ''
-              var value = checkobj.value || title
+              var title = 'title' in checkobj ? checkobj.title : ''
+              var value = 'value' in checkobj ? checkobj.value : title
               titles.push(title);
               values.push(value);
               checkobj.children && delete checkobj.children;
@@ -685,8 +685,8 @@
               && this.checked_col_3 < this.col_3_list.length
               && this.col_3_list[this.checked_col_3]) {
               var checkobj = Object.assign({}, this.col_3_list[this.checked_col_3] || {});
-              var title = checkobj.title || ''
-              var value = checkobj.value || title
+              var title = 'title' in checkobj ? checkobj.title : ''
+              var value = 'value' in checkobj ? checkobj.value : title
               titles.push(title);
               values.push(value);
               checkobj.children && delete checkobj.children;
