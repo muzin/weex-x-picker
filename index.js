@@ -1,1 +1,3 @@
-export { default } from './index.vue';
+import XPicker from './index.vue';
+
+export { XPicker }
