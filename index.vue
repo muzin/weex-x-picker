@@ -545,7 +545,7 @@
         scrollToItem = this.$refs[ref + '_text_' + idx]
 
         if (scrollToItem) {
-          scrollToItem = scrollToItem instanceof Array
+          scrollToItem = Array.isArray(scrollToItem)
             ? scrollToItem.length > 0 ? scrollToItem[0] : null
             : scrollToItem;
           if (scrollToItem) {
