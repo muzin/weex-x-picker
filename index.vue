@@ -360,11 +360,11 @@
             this.checked_col_1 = 0;
           }
           if(this.column > 1) {
-            this.col_2_list = this.col_1_list[0].children || []
+            this.col_2_list = this.col_1_list && this.col_1_list[0] && this.col_1_list[0].children || []
             this.checked_col_2 = 0;
           }
           if(this.column > 2) {
-            this.col_3_list = this.col_2_list[0].children || []
+            this.col_3_list =  this.col_2_list && this.col_2_list[0] && this.col_2_list[0].children || []
             this.checked_col_3 = 0;
           }
         }
