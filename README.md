@@ -13,6 +13,9 @@ weex-x-picker 基于 alibaba 的weex-ui中的wxc-popup，wxc-overlay 组件开�
 npm add weex-x-picker
 ```
 
+##### 演示
+[演示地址](https://mithub.oss-cn-beijing.aliyuncs.com/demos/weex-x-picker/1.1.1/index.html)
+
 ##### 主题
 
 ![](./images/operation_gif.gif)

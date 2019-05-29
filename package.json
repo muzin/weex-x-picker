@@ -1,6 +1,6 @@
 {
   "name": "weex-x-picker",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "weex-x-picker 支持 single(单选)，area(区域)，section(区间)，date(日期)，time(时间), linkage(联动), 平台支持 IOS，Android，Web",
   "main": "index.js",
   "scripts": {
